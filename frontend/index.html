@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DevOps Task Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">⚡</div>
+
+                <div>
+                    <h1>DevOps</h1>
+                    <span>Task Manager</span>
+                </div>
+            </div>
+
+            <nav class="navigation">
+
+                <a href="#" class="nav-item active">
+                    <span>▦</span>
+                    Dashboard
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span>✓</span>
+                    My Tasks
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span>◈</span>
+                    Projects
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <a href="#" class="nav-item">
+                    <span>⚙</span>
+                    Settings
+                </a>
+
+                <div class="profile-mini">
+
+                    <div class="avatar">H</div>
+
+                    <div>
+                        <strong>Harsh Kumar</strong>
+                        <small>Developer</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Topbar -->
+            <header class="topbar">
+
+                <div>
+                    <p class="eyebrow">WORKSPACE</p>
+                    <h2>Dashboard</h2>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button class="icon-button" title="Notifications">
+                        🔔
+                    </button>
+
+                    <button class="user-button">
+                        <div class="avatar">H</div>
+
+                        <div class="user-info">
+                            <strong>Harsh Kumar</strong>
+                            <span>DevOps Engineer</span>
+                        </div>
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+
+                <div>
+                    <p class="welcome-label">WELCOME BACK 👋</p>
+
+                    <h3>
+                        Let's get things
+                        <span>done.</span>
+                    </h3>
+
+                    <p class="welcome-text">
+                        Manage your tasks, track progress and keep your
+                        development workflow organized.
+                    </p>
+                </div>
+
+                <button class="primary-button" id="openTaskModal">
+                    + New Task
+                </button>
+
+            </section>
+
+
+            <!-- Statistics -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">✓</div>
+
+                    <div>
+                        <span>Total Tasks</span>
+                        <strong id="totalTasks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">◷</div>
+
+                    <div>
+                        <span>In Progress</span>
+                        <strong id="inProgressTasks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">✓</div>
+
+                    <div>
+                        <span>Completed</span>
+                        <strong id="completedTasks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">!</div>
+
+                    <div>
+                        <span>High Priority</span>
+                        <strong id="highPriorityTasks">0</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Tasks Section -->
+            <section class="tasks-section">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-label">WORK MANAGEMENT</p>
+                        <h3>My Tasks</h3>
+                    </div>
+
+                    <div class="task-controls">
+
+                        <input
+                            type="text"
+                            id="searchTask"
+                            class="search-input"
+                            placeholder="Search tasks..."
+                        >
+
+                        <select id="statusFilter" class="filter-select">
+
+                            <option value="all">
+                                All Status
+                            </option>
+
+                            <option value="todo">
+                                To Do
+                            </option>
+
+                            <option value="in_progress">
+                                In Progress
+                            </option>
+
+                            <option value="completed">
+                                Completed
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Task List -->
+                <div id="taskList" class="task-list">
+
+                    <!-- Tasks will be loaded here by JavaScript -->
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">✓</div>
+
+                        <h4>No tasks yet</h4>
+
+                        <p>
+                            Create your first task to start managing
+                            your DevOps workflow.
+                        </p>
+
+                        <button
+                            class="secondary-button"
+                            id="emptyStateButton"
+                        >
+                            Create Task
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- New Task Modal -->
+    <div class="modal-overlay" id="taskModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <p class="section-label">TASK MANAGEMENT</p>
+                    <h3>Create New Task</h3>
+                </div>
+
+                <button
+                    class="modal-close"
+                    id="closeTaskModal"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="taskForm">
+
+                <div class="form-group">
+
+                    <label for="taskTitle">
+                        Task Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="taskTitle"
+                        placeholder="e.g. Configure Kubernetes deployment"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="taskDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="taskDescription"
+                        rows="4"
+                        placeholder="Describe what needs to be done..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="taskPriority">
+                        Priority
+                    </label>
+
+                    <select id="taskPriority">
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option value="medium" selected>
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancelTask"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Create Task
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Edit Task Modal -->
+<div class="modal-overlay" id="editTaskModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <p class="section-label">TASK MANAGEMENT</p>
+                <h3>Edit Task</h3>
+            </div>
+
+            <button
+                class="modal-close"
+                id="closeEditTaskModal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <form id="editTaskForm">
+
+            <div class="form-group">
+
+                <label for="editTaskTitle">
+                    Task Title
+                </label>
+
+                <input
+                    type="text"
+                    id="editTaskTitle"
+                    placeholder="Task title"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="editTaskDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="editTaskDescription"
+                    rows="4"
+                    placeholder="Task description"
+                ></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="editTaskPriority">
+                    Priority
+                </label>
+
+                <select id="editTaskPriority">
+
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="editTaskStatus">
+                    Status
+                </label>
+
+                <select id="editTaskStatus">
+
+                    <option value="todo">To Do</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+
+                </select>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancelEditTask"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+<script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Build Docker Image",
+      "description": "Create a production-ready Docker image for the DevOps Task Manager application.",
+      "priority": "high",
+      "status": "in_progress"
+    },
+    {
+      "id": 2,
+      "title": "Setup Jenkins Pipeline",
+      "description": "Create an automated CI/CD pipeline using Jenkins.",
+      "priority": "medium",
+      "status": "todo"
+    },
+    {
+      "id": 3,
+      "title": "Deploy Application on Kubernetes",
+      "description": "Deploy the containerized application using Kubernetes workloads and services.",
+      "priority": "high",
+      "status": "todo"
+    }
+  ]
+}

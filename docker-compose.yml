@@ -1,0 +1,23 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+    image: devops-task-manager-backend:1.0
+    container_name: devops-task-manager-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    image: devops-task-manager-frontend:1.0
+    container_name: devops-task-manager-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

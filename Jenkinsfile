@@ -24,17 +24,28 @@ pipeline {
             }
         }
 
+        stage('Deploy Application') {
+            steps {
+                sh 'docker compose up -d --force-recreate'
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh 'docker compose ps'
+            }
+        }
     }
 
     post {
 
         success {
-            echo '✅ CI pipeline completed successfully.'
+            echo '✅ CI/CD pipeline completed successfully.'
+            echo '🚀 Application deployed successfully.'
         }
 
         failure {
-            echo '❌ CI pipeline failed. Check the build logs.'
+            echo '❌ CI/CD pipeline failed. Check the build logs.'
         }
-
     }
 }
